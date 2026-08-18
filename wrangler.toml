@@ -1,0 +1,14 @@
+name = "aura-api-gateway"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+SUPABASE_URL = "https://qqyeeutzuabeyshtsuql.supabase.co"
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 5
+period = 86400
