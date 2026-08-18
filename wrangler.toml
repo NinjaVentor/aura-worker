@@ -11,4 +11,4 @@ namespace_id = "1001"
 
 [ratelimits.simple]
 limit = 5
-period = 86400
+period = 60

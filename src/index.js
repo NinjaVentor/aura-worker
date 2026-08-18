@@ -15,10 +15,10 @@ export default {
 
     const ipAddress = request.headers.get("cf-connecting-ip") || "unknown-ip";
 
-    // Rate Limiting
+    // Rate Limiting (Burst Protection - 5 per minute)
     const { success } = await env.RATE_LIMITER.limit({ key: ipAddress });
     if (!success) {
-      return new Response(JSON.stringify({ error: "Daily scan limit reached. Come back tomorrow!" }), {
+      return new Response(JSON.stringify({ error: "Too many requests. Please try again in a minute." }), {
         status: 429,
         headers: {
           "Content-Type": "application/json",
