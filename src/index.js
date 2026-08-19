@@ -31,11 +31,15 @@ export default {
     // We expect the client to send the request exactly as they would to Supabase
     const supabaseUrl = `${env.SUPABASE_URL}/functions/v1/scan-ingredients`;
     
-    // Create new request based on the incoming one
-    const newRequest = new Request(supabaseUrl, new Request(request));
+    const newHeaders = new Headers(request.headers);
+    newHeaders.delete("Host"); // Let fetch set the correct Host
 
     try {
-      const response = await fetch(newRequest);
+      const response = await fetch(supabaseUrl, {
+        method: request.method,
+        headers: newHeaders,
+        body: request.body
+      });
       
       // Clone response to add CORS headers
       const newResponse = new Response(response.body, response);
